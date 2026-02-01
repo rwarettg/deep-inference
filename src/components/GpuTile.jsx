@@ -45,9 +45,9 @@ function GpuTile({ gpu, service, onCopy }) {
   const formatMaxTokens = (maxTokens) => {
     if (!maxTokens) return null;
     if (maxTokens >= 1024) {
-      return `${(maxTokens / 1024).toFixed(0)}K ctx`;
+      return `${(maxTokens / 1024).toFixed(0)}K tokens`;
     }
-    return `${maxTokens} ctx`;
+    return `${maxTokens} tokens`;
   };
 
   const hasModel = service || gpu.model;
