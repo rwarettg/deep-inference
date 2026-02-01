@@ -264,6 +264,22 @@ body {
   color: var(--text-dim);
 }
 
+.model-ctx {
+  font-size: 0.7rem;
+  font-weight: 500;
+  padding: 0.15rem 0.4rem;
+  border-radius: 4px;
+  background: rgba(250, 204, 21, 0.15);
+  color: var(--yellow);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.model-uptime {
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  font-family: 'JetBrains Mono', monospace;
+}
+
 /* Right Side - Stats */
 .gpu-row-right {
   display: flex;

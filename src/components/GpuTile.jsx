@@ -27,6 +27,29 @@ function GpuTile({ gpu, service, onCopy }) {
     return parts[parts.length - 1];
   };
 
+  const formatUptime = (startedAt) => {
+    if (!startedAt) return null;
+    const start = new Date(startedAt);
+    const now = new Date();
+    const diffMs = now - start;
+    
+    const minutes = Math.floor(diffMs / (1000 * 60));
+    const hours = Math.floor(minutes / 60);
+    const days = Math.floor(hours / 24);
+    
+    if (days > 0) return `${days}d ${hours % 24}h`;
+    if (hours > 0) return `${hours}h ${minutes % 60}m`;
+    return `${minutes}m`;
+  };
+
+  const formatMaxTokens = (maxTokens) => {
+    if (!maxTokens) return null;
+    if (maxTokens >= 1024) {
+      return `${(maxTokens / 1024).toFixed(0)}K ctx`;
+    }
+    return `${maxTokens} ctx`;
+  };
+
   const hasModel = service || gpu.model;
   
   const generateExample = () => {
@@ -175,6 +198,12 @@ function GpuTile({ gpu, service, onCopy }) {
               <span className="model-name">{getShortName(service.model)}</span>
               <span className={`model-type ${service.type}`}>{service.type?.toUpperCase()}</span>
               <span className="model-port">:{service.port}</span>
+              {service.type === 'llm' && service.max_tokens && (
+                <span className="model-ctx">{formatMaxTokens(service.max_tokens)}</span>
+              )}
+              {service.started_at && (
+                <span className="model-uptime">⏱ {formatUptime(service.started_at)}</span>
+              )}
               <span className="expand-hint">{expanded ? '▲' : '▼'}</span>
             </div>
           )}
